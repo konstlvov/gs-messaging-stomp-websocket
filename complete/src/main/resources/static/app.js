@@ -21,6 +21,23 @@ function connect() {
         stompClient.subscribe('/topic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
+        stompClient.subscribe('/topic/msg', function (msgFromServer) {
+            console.log("msg from server received");
+            console.log(msgFromServer);
+            var msg = JSON.parse(msgFromServer.body); // msgFromServer contains much more than body
+            if (msg) {
+                //console.log(msg); // debug
+                var elementId = msg.elementId;
+                var elementText = msg.elementText;
+                if (elementId && elementText) {
+                    document.getElementById(elementId).innerText = elementText;
+                }
+            }
+            else {
+                console.error("msg cannot be parsed");
+            }
+
+        });
     });
 }
 

@@ -19,4 +19,12 @@ public class Button1Controller {
 		template.convertAndSend(topic, new Greeting(message));
 		return "Successfully sent message [" + message + "] to topic [" + topic + "]";
 	}
+
+	@GetMapping("/msg")
+	public String msg(@RequestParam("id") String id, @RequestParam("text") String text) throws Exception {
+		String topic = "/topic/msg";
+		Msg msg = new Msg(id, text);
+		template.convertAndSend(topic, msg);
+		return "Successfully sent message [" + msg.toString() + "] to topic [" + topic + "]";
+	}
 }
