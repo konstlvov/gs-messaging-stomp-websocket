@@ -13,6 +13,8 @@ function setConnected(connected) {
 }
 
 function connect() {
+    var statusLineTextElement = document.getElementById('statusline');
+    var statusLineTextNode = statusLineTextElement.childNodes[0];
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -22,15 +24,20 @@ function connect() {
             showGreeting(JSON.parse(greeting.body).content);
         });
         stompClient.subscribe('/topic/msg', function (msgFromServer) {
-            console.log("msg from server received");
-            console.log(msgFromServer);
+            //console.log("msg from server received");
+            //console.log(msgFromServer);
             var msg = JSON.parse(msgFromServer.body); // msgFromServer contains much more than body
             if (msg) {
                 //console.log(msg); // debug
                 var elementId = msg.elementId;
                 var elementText = msg.elementText;
                 if (elementId && elementText) {
-                    document.getElementById(elementId).innerText = elementText;
+                    //document.getElementById(elementId).innerText = elementText; // вроде бы медленный способ
+                    //$('#' + elementId).text(elementText); // вроде бы быстрее
+                    //document.getElementById(elementId).childNodes[0].nodeValue = elementText; // вроде бы еще быстрее...
+                    //statusLineTextNode.nodeValue = elementText; // возможно, еще быстрее - экономим на getElementById
+                    // (но так не установить произвольный элемент, т.е. теряется универсальность)
+                    statusLineTextElement.textContent = elementText; // вроде бы тоже быстро
                 }
             }
             else {
