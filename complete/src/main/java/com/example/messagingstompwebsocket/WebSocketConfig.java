@@ -20,7 +20,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/gs-guide-websocket")
 				.setAllowedOriginPatterns("http://localhost:4200")
-				.withSockJS();
+				//.withSockJS() // when using ng2-stomp, withSockJS must be removed
+		;
 	}
 
 }
