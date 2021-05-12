@@ -1,17 +1,29 @@
 package com.example.messagingstompwebsocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.servlet.ServletContext;
+
 @Controller
-public class GreetingController {
+public class GreetingController implements ServletContextAware {
 
 	@Autowired
 	private SimpMessagingTemplate template;
+
+	private ServletContext servletContext;
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext=servletContext;
+		System.out.println("servlet context set to " + servletContext);
+	}
 
 	@MessageMapping("/hello")
 	@SendTo("/topic/greetings")

@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+	compile 'org.springframework:spring-aop'
+	compile 'org.aspectj:aspectjweaver'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.webjars:webjars-locator-core'
 	implementation 'org.webjars:sockjs-client:1.0.2'
