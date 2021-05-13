@@ -5,22 +5,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @SpringBootApplication
-@EnableAspectJAutoProxy
 public class MessagingStompWebsocketApplication {
 
 	public static void handleCommand(ApplicationContext ctx, String command) throws Exception {
 		System.out.println("You typed: " + command);
-		GreetingController gc = ctx.getBean(GreetingController.class);
 		HelloComponent hc = ctx.getBean(HelloComponent.class);
-		if (command.equals("lj")) {
-			System.out.println("About to run long job...");
-			gc.runLongJob();
+		if (command.equals("job")) {
+			System.out.println("About to run long job (not implemented yet)...");
 		}
 		if (command.equals("set")) {
 			hc.setHeader("This is header");

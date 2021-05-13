@@ -9,6 +9,16 @@ public class HelloComponent {
 	private String greeting;
 	private String statusline;
 
+	public String getNewField() {
+		return newField;
+	}
+
+	public void setNewField(String newField) {
+		this.newField = newField;
+	}
+
+	private String newField;
+
 	public String getHeader() {
 		return header;
 	}
